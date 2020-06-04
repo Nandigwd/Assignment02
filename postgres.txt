@@ -1,0 +1,31 @@
+CREATE SCHEMA  mobilicts;
+
+
+CREATE SEQUENCE mobilicts.seq_person_id
+	INCREMENT BY 1
+	MINVALUE 1001
+	MAXVALUE 9223372036854775807
+	START 1074
+	CACHE 1;
+
+CREATE TABLE mobilicts.person (
+	id int8 NOT NULL DEFAULT nextval('mobilicts.seq_person_id'::regclass),
+	first_name varchar NOT  NULL,
+	last_name varchar NULL,
+	email varchar NOT NULL,
+	password varchar NOT NULL,
+	mobile int8 null,
+	user_id int8 null,
+	CONSTRAINT pk_person_id PRIMARY KEY (id),
+	CONSTRAINT fk_person_user_id FOREIGN KEY (user_id) REFERENCES mobilicts.person(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+ALTER sequence mobilicts.seq_person_id owned by mobilicts.person.id;
+ALTER TABLE mobilicts.person ALTER "id" SET DEFAULT nextval('mobilicts.seq_person_id'::regclass);
+
+
+
+npm install express 
+npm install pg
+npm install bcrypt 
+npm install dotenv
